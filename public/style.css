@@ -50,11 +50,8 @@ h1, h2, h3 { color: var(--text-main); font-weight: 600; }
 .text-muted { color: var(--text-muted); font-size: 0.9em; }
 
 /* Login Box */
-#login-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+#login-screen { justify-content: center; align-items: center; } 
+#login-screen.active { display: flex; }
 .login-box {
     background: var(--bg-card);
     padding: 2.5rem;
@@ -315,3 +312,4 @@ tr:hover { background: rgba(255,255,255,0.02); }
     justify-content: flex-end;
     gap: 1rem;
 }
+
