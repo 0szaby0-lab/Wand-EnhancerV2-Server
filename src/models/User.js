@@ -63,6 +63,14 @@ const userSchema = new mongoose.Schema({
   lastHeartbeat: {
     type: Date,
     default: null,
+  },
+  currentlyPlaying: {
+    type: String,
+    default: null,
+  },
+  lastGameUpdate: {
+    type: Date,
+    default: null,
   }
 }, { timestamps: true });
 

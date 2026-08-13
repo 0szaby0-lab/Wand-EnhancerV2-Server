@@ -127,6 +127,7 @@ function renderUsers() {
             <tr>
                 <td><span class="status-dot ${user.isOnline ? 'status-online' : 'status-offline'}" title="${user.isOnline ? 'Online' : 'Offline'}"></span></td>
                 <td><strong>${user.username}</strong></td>
+                <td>${user.currentlyPlaying ? `<span class="badge badge-active"><i class="fas fa-gamepad"></i> ${user.currentlyPlaying}</span>` : '<span class="text-muted">-</span>'}</td>
                 <td><small class="text-muted" title="${user.hwid || 'Nincs'}">${user.hwid ? user.hwid.substring(0, 15) + '...' : 'Nincs'}</small></td>
                 <td>${user.assignedPort}</td>
                 <td>${subBadge}</td>

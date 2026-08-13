@@ -171,5 +171,28 @@ router.post('/auth', async (req, res) => {
   }
 });
 
+// Game status endpoint for Electron bridge
+router.post('/game-status', async (req, res) => {
+  try {
+    const { hwid, gameName } = req.body;
+    if (!hwid) {
+      return res.status(400).json({ error: 'Missing HWID' });
+    }
+    const user = await User.findOne({ hwid: hwid });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    // Update currently playing status
+    user.currentlyPlaying = gameName || null;
+    user.lastGameUpdate = new Date();
+    await user.save();
+    
+    return res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 module.exports = router;
 
