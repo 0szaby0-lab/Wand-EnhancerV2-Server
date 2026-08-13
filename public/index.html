@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wand Elite V2 - Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+        <div class="login-box">
+            <img src="https://raw.githubusercontent.com/k1tbyte/Wand-Enhancer/main/WandEnhancer/WandEliteLogo.png" alt="Wand Elite" class="logo">
+            <h2>Admin Bejelentkezés</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Felhasználónév" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Jelszó" required>
+                </div>
+                <button type="submit" class="btn-primary">Bejelentkezés <i class="fas fa-arrow-right"></i></button>
+                <div id="login-error" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboard-screen" class="screen">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <img src="https://raw.githubusercontent.com/k1tbyte/Wand-Enhancer/main/WandEnhancer/WandEliteLogo.png" alt="Wand Elite" class="nav-logo">
+                <span>Wand Elite V2 <small>Admin</small></span>
+            </div>
+            <button id="logout-btn" class="btn-secondary"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+        </nav>
+
+        <div class="container">
+            <!-- Stats Row -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <h3>Összes Felhasználó</h3>
+                        <p id="stat-total">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon text-success"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-info">
+                        <h3>Aktív Előfizetők</h3>
+                        <p id="stat-active">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon text-warning"><i class="fas fa-wifi"></i></div>
+                    <div class="stat-info">
+                        <h3>Most Online</h3>
+                        <p id="stat-online">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon text-danger"><i class="fas fa-ban"></i></div>
+                    <div class="stat-info">
+                        <h3>Letiltva (Banned)</h3>
+                        <p id="stat-banned">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-list"></i> Felhasználók Kezelése</h2>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Keresés névre vagy HWID-re...">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="users-table">
+                        <thead>
+                            <tr>
+                                <th>Státusz</th>
+                                <th>Felhasználónév</th>
+                                <th>HWID</th>
+                                <th>Port</th>
+                                <th>Előfizetés</th>
+                                <th>Utolsó Belépés</th>
+                                <th>Műveletek</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-tbody">
+                            <!-- Rows rendered via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Subscription Modal -->
+    <div id="sub-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Előfizetés Beállítása</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Felhasználó: <strong id="sub-username"></strong></p>
+                <div class="input-group">
+                    <label>Hány napra adsz előfizetést?</label>
+                    <input type="number" id="sub-days" value="30" min="0">
+                    <small>0 = Előfizetés azonnali visszavonása</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal-btn">Mégse</button>
+                <button class="btn-primary" id="save-sub-btn">Mentés</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notes Modal -->
+    <div id="notes-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Megjegyzés</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <textarea id="user-notes" rows="5" placeholder="Ide írhatsz megjegyzéseket a felhasználóhoz..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal-btn">Mégse</button>
+                <button class="btn-primary" id="save-notes-btn">Mentés</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
