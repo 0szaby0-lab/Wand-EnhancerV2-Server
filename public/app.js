@@ -203,3 +203,10 @@ document.getElementById('save-notes-btn').addEventListener('click', async () => 
     notesModal.classList.remove('active');
     loadData();
 });
+
+// Auto-refresh data every 5 seconds if the dashboard is active
+setInterval(() => {
+    if (document.getElementById('dashboard-screen').classList.contains('active')) {
+        loadData();
+    }
+}, 5000);
