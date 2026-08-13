@@ -154,4 +154,22 @@ router.post('/heartbeat', requireAuth, async (req, res) => {
   res.json({ ok: true });
 });
 
+// Legacy C++ DLL auth endpoint
+router.post('/auth', async (req, res) => {
+  try {
+    const { hwid } = req.body;
+    if (!hwid) {
+      return res.status(400).json({ error: 'Missing HWID' });
+    }
+    const user = await User.findOne({ hwid: hwid });
+    if (!user || user.isBanned || !isSubActive(user)) {
+      return res.status(403).json({ authorized: false });
+    }
+    return res.json({ authorized: true });
+  } catch (error) {
+    res.status(500).json({ authorized: false });
+  }
+});
+
 module.exports = router;
+
