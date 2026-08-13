@@ -26,6 +26,9 @@ app.use('/api/admin', adminRoutes); // /api/admin/*
 // Serve static files for Admin Dashboard
 app.use(express.static(path.join(__dirname, '../public')));
 
+// Serve static files for Remote App (so /assets/... resolves correctly)
+app.use(express.static(path.join(__dirname, '../public/remote')));
+
 // Serve Remote Web Panel for /:username
 app.get('/:username', async (req, res, next) => {
   // If it's an API route or file with extension, skip this rule
