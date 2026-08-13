@@ -70,11 +70,11 @@ wss.on('connection', (ws, req) => {
     desktopClients.set(hwid, ws);
     console.log(`[WS] Desktop connected: ${hwid}`);
     
-    ws.on('message', (message) => {
+    ws.on('message', (message, isBinary) => {
       // Forward from Desktop to Mobile
       User.findOne({ hwid }).then(dbUser => {
         if (dbUser && mobileClients.has(dbUser.username)) {
-          mobileClients.get(dbUser.username).send(message, { binary: Buffer.isBuffer(message) });
+          mobileClients.get(dbUser.username).send(message, { binary: isBinary });
         }
       });
     });
@@ -88,11 +88,11 @@ wss.on('connection', (ws, req) => {
     mobileClients.set(user, ws);
     console.log(`[WS] Mobile connected for user: ${user}`);
     
-    ws.on('message', (message) => {
+    ws.on('message', (message, isBinary) => {
       // Forward from Mobile to Desktop
       User.findOne({ username: user.toLowerCase() }).then(dbUser => {
         if (dbUser && dbUser.hwid && desktopClients.has(dbUser.hwid)) {
-          desktopClients.get(dbUser.hwid).send(message, { binary: Buffer.isBuffer(message) });
+          desktopClients.get(dbUser.hwid).send(message, { binary: isBinary });
         }
       });
     });
