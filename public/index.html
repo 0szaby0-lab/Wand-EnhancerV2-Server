@@ -4,17 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wand Elite V2 - Admin Dashboard</title>
+    <!-- Modern Font: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+
     <!-- Login Screen -->
     <div id="login-screen" class="screen active">
-        <div class="login-box">
-            <img src="https://raw.githubusercontent.com/0szaby0-lab/Wand-EnhancerV2/main/WandEnhancer/WandEliteLogo.png" alt="Wand Elite" class="logo">
-            <h2>Admin Bejelentkezés</h2>
+        <div class="glass-box login-box">
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/0szaby0-lab/Wand-EnhancerV2/main/WandEnhancer/WandEliteLogo.png" alt="Wand Elite" class="logo">
+                <div class="glow-effect"></div>
+            </div>
+            <h2>Admin Login</h2>
+            <p class="subtitle">Üdvözlünk a Titánium Hálózatban</p>
             <form id="login-form">
                 <div class="input-group">
                     <i class="fas fa-user"></i>
@@ -24,7 +35,10 @@
                     <i class="fas fa-lock"></i>
                     <input type="password" id="password" placeholder="Jelszó" required>
                 </div>
-                <button type="submit" class="btn-primary">Bejelentkezés <i class="fas fa-arrow-right"></i></button>
+                <button type="submit" class="btn-primary">
+                    <span>Bejelentkezés</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
                 <div id="login-error" class="error-message"></div>
             </form>
         </div>
@@ -32,54 +46,68 @@
 
     <!-- Dashboard Screen -->
     <div id="dashboard-screen" class="screen">
-        <nav class="navbar">
+        <nav class="glass-navbar">
             <div class="nav-brand">
                 <img src="https://raw.githubusercontent.com/0szaby0-lab/Wand-EnhancerV2/main/WandEnhancer/WandEliteLogo.png" alt="Wand Elite" class="nav-logo">
-                <span>Wand Elite V2 <small>Admin</small></span>
+                <div class="nav-title">
+                    <span>Wand Elite V2</span>
+                    <span class="badge badge-admin">ADMIN</span>
+                </div>
             </div>
-            <button id="logout-btn" class="btn-secondary"><i class="fas fa-sign-out-alt"></i> Kijelentkezés</button>
+            <button id="logout-btn" class="btn-logout"><i class="fas fa-sign-out-alt"></i></button>
         </nav>
 
         <div class="container">
             <!-- Stats Row -->
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="glass-card stat-card">
+                    <div class="stat-icon-wrapper blue">
+                        <i class="fas fa-users"></i>
+                    </div>
                     <div class="stat-info">
-                        <h3>Összes Felhasználó</h3>
                         <p id="stat-total">0</p>
+                        <h3>Összes Felhasználó</h3>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon text-success"><i class="fas fa-check-circle"></i></div>
+                <div class="glass-card stat-card">
+                    <div class="stat-icon-wrapper green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
                     <div class="stat-info">
-                        <h3>Aktív Előfizetők</h3>
                         <p id="stat-active">0</p>
+                        <h3>Aktív Előfizetések</h3>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon text-warning"><i class="fas fa-wifi"></i></div>
+                <div class="glass-card stat-card">
+                    <div class="stat-icon-wrapper orange">
+                        <i class="fas fa-wifi"></i>
+                    </div>
                     <div class="stat-info">
-                        <h3>Most Online</h3>
                         <p id="stat-online">0</p>
+                        <h3>Most Online</h3>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon text-danger"><i class="fas fa-ban"></i></div>
+                <div class="glass-card stat-card">
+                    <div class="stat-icon-wrapper red">
+                        <i class="fas fa-ban"></i>
+                    </div>
                     <div class="stat-info">
-                        <h3>Letiltva (Banned)</h3>
                         <p id="stat-banned">0</p>
+                        <h3>Letiltva (Banned)</h3>
                     </div>
                 </div>
             </div>
 
             <!-- Users Table -->
-            <div class="card">
+            <div class="glass-card table-card">
                 <div class="card-header">
-                    <h2><i class="fas fa-list"></i> Felhasználók Kezelése</h2>
+                    <div class="header-title">
+                        <div class="icon-pulse"><i class="fas fa-network-wired"></i></div>
+                        <h2>Hálózat Kezelése</h2>
+                    </div>
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="search-input" placeholder="Keresés névre vagy HWID-re...">
+                        <input type="text" id="search-input" placeholder="Keresés név vagy HWID alapján...">
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -87,7 +115,7 @@
                         <thead>
                             <tr>
                                 <th>Státusz</th>
-                                <th>Felhasználónév</th>
+                                <th>Felhasználó</th>
                                 <th>HWID</th>
                                 <th>Port</th>
                                 <th>Előfizetés</th>
@@ -107,21 +135,21 @@
     <!-- Modals -->
     <!-- Subscription Modal -->
     <div id="sub-modal" class="modal">
-        <div class="modal-content">
+        <div class="glass-modal">
             <div class="modal-header">
-                <h3>Előfizetés Beállítása</h3>
-                <span class="close-modal">&times;</span>
+                <h3><i class="fas fa-crown text-primary"></i> Jogosultság Kezelése</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body">
-                <p>Felhasználó: <strong id="sub-username"></strong></p>
+                <p class="modal-subtitle">Felhasználó: <strong id="sub-username" class="text-white"></strong></p>
                 <div class="input-group">
-                    <label>Hány napra adsz előfizetést?</label>
+                    <label>Prémium Napok Száma</label>
                     <input type="number" id="sub-days" value="30" min="0">
-                    <small>0 = Előfizetés azonnali visszavonása</small>
+                    <small class="hint">0 = Előfizetés azonnali visszavonása</small>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn-secondary close-modal-btn">Mégse</button>
+                <button class="btn-ghost close-modal-btn">Mégse</button>
                 <button class="btn-primary" id="save-sub-btn">Mentés</button>
             </div>
         </div>
@@ -129,16 +157,18 @@
 
     <!-- Notes Modal -->
     <div id="notes-modal" class="modal">
-        <div class="modal-content">
+        <div class="glass-modal">
             <div class="modal-header">
-                <h3>Megjegyzés</h3>
-                <span class="close-modal">&times;</span>
+                <h3><i class="fas fa-sticky-note text-warning"></i> Admin Megjegyzés</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body">
-                <textarea id="user-notes" rows="5" placeholder="Ide írhatsz megjegyzéseket a felhasználóhoz..."></textarea>
+                <div class="input-group">
+                    <textarea id="user-notes" rows="5" placeholder="Ide írhatsz rejtett megjegyzéseket a felhasználóról..."></textarea>
+                </div>
             </div>
             <div class="modal-footer">
-                <button class="btn-secondary close-modal-btn">Mégse</button>
+                <button class="btn-ghost close-modal-btn">Mégse</button>
                 <button class="btn-primary" id="save-notes-btn">Mentés</button>
             </div>
         </div>
@@ -147,4 +177,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-
