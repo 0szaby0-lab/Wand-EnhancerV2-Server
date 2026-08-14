@@ -69,12 +69,15 @@ wss.on('connection', (ws, req) => {
     // Desktop connection
     desktopClients.set(hwid, ws);
     console.log(`[WS] Desktop connected: ${hwid}`);
-    
     ws.on('message', (message, isBinary) => {
+      console.log(`[WS] Msg from Desktop (${hwid}):`, message.toString().substring(0, 100));
       // Forward from Desktop to Mobile
       User.findOne({ hwid }).then(dbUser => {
         if (dbUser && mobileClients.has(dbUser.username)) {
+          console.log(`[WS] Forwarding Desktop -> Mobile (${dbUser.username})`);
           mobileClients.get(dbUser.username).send(message, { binary: isBinary });
+        } else {
+          console.log(`[WS] Cannot forward to Mobile: dbUser=${!!dbUser}, mobileConnected=${dbUser ? mobileClients.has(dbUser.username) : false}`);
         }
       });
     });
@@ -89,10 +92,14 @@ wss.on('connection', (ws, req) => {
     console.log(`[WS] Mobile connected for user: ${user}`);
     
     ws.on('message', (message, isBinary) => {
+      console.log(`[WS] Msg from Mobile (${user}):`, message.toString().substring(0, 100));
       // Forward from Mobile to Desktop
       User.findOne({ username: user.toLowerCase() }).then(dbUser => {
         if (dbUser && dbUser.hwid && desktopClients.has(dbUser.hwid)) {
+          console.log(`[WS] Forwarding Mobile -> Desktop (${dbUser.hwid})`);
           desktopClients.get(dbUser.hwid).send(message, { binary: isBinary });
+        } else {
+          console.log(`[WS] Cannot forward to Desktop: dbUser=${!!dbUser}, hasHwid=${dbUser ? !!dbUser.hwid : false}, desktopConnected=${dbUser && dbUser.hwid ? desktopClients.has(dbUser.hwid) : false}`);
         }
       });
     });
