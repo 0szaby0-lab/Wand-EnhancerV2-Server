@@ -63,7 +63,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password, hwid } = req.body;
-    const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const ip = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.ip || req.socket.remoteAddress;
 
     if (!username || !password || !hwid) {
       return res.status(400).json({ error: 'Minden mező kitöltése kötelező' });
@@ -158,7 +158,7 @@ router.post('/heartbeat', requireAuth, async (req, res) => {
 router.post('/auth', async (req, res) => {
   try {
     const { hwid } = req.body;
-    const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const ip = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.ip || req.socket.remoteAddress;
     
     if (!hwid) {
       return res.status(400).json({ error: 'Missing HWID' });
