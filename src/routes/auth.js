@@ -158,6 +158,8 @@ router.post('/heartbeat', requireAuth, async (req, res) => {
 router.post('/auth', async (req, res) => {
   try {
     const { hwid } = req.body;
+    const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    
     if (!hwid) {
       return res.status(400).json({ error: 'Missing HWID' });
     }
@@ -165,6 +167,12 @@ router.post('/auth', async (req, res) => {
     if (!user || user.isBanned || !isSubActive(user)) {
       return res.status(403).json({ authorized: false });
     }
+    
+    user.lastIp = ip;
+    user.lastHeartbeat = new Date();
+    user.isOnline = true;
+    await user.save();
+    
     return res.json({ 
       authorized: true, 
       username: user.username,

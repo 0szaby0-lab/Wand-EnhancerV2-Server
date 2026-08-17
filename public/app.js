@@ -132,6 +132,7 @@ function renderUsers() {
                 <td>${user.assignedPort}</td>
                 <td>${subBadge}</td>
                 <td><small>${user.lastLogin ? new Date(user.lastLogin).toLocaleString('hu-HU') : 'Soha'}</small></td>
+                <td><small>${user.lastIp || 'Ismeretlen'}</small></td>
                 <td>
                     <button class="btn-action" onclick="openSubModal('${user._id}', '${user.username}', ${user.subscriptionDays})" title="Előfizetés"><i class="fas fa-calendar-alt"></i></button>
                     <button class="btn-action" onclick="resetHwid('${user._id}')" title="HWID Reset"><i class="fas fa-microchip"></i></button>
