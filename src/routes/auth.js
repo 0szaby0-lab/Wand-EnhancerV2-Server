@@ -165,7 +165,11 @@ router.post('/auth', async (req, res) => {
     if (!user || user.isBanned || !isSubActive(user)) {
       return res.status(403).json({ authorized: false });
     }
-    return res.json({ authorized: true, username: user.username });
+    return res.json({ 
+      authorized: true, 
+      username: user.username,
+      expiresAt: user.subscriptionExpires
+    });
   } catch (error) {
     res.status(500).json({ authorized: false });
   }
